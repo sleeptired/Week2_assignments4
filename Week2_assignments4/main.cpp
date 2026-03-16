@@ -31,43 +31,66 @@ int main() {
 
         if (choice == 1) {
             std::string name;
-            std::cout << "물약 이름: ";
-            std::cin.ignore(10000, '\n');
-            std::getline(std::cin, name);
+            //std::cout << "물약 이름: ";
+            std::cin.ignore(10000, '\n');//// 이전에 메뉴 선택에서 입력한 숫자의 엔터(\n) 찌꺼기를 지워줍니다.
+            //std::getline(std::cin, name);
+            while (true) 
+            {
+                std::cout << "물약 이름: ";
+                std::getline(std::cin, name);
+                if (name.empty()) 
+                {
+                    std::cout << ">> 잘못된 입력입니다. 물약 이름을 입력해주세요." << std::endl;
+                    continue; // 다시 입력을 받음
+                }
+                break; // 정상적으로 입력되었으면 루프를 탈출
+            }
 
             // 여러 재료를 입력받기 위한 로직
             std::vector<std::string> ingredients_input;
             std::string ingredient;
             std::cout << "필요한 재료들을 입력하세요. (입력 완료 시 '끝' 입력)" << std::endl;
 
-            while (true) {
+            while (true) 
+            {
                 std::cout << "재료 입력: ";
                 std::getline(std::cin, ingredient);
 
                 // 사용자가 '끝'을 입력하면 재료 입력 종료
-                if (ingredient == "끝") {
+                if (ingredient == "끝") 
+                {
                     break;
+                }
+
+                if (ingredient.empty())
+                {
+                    std::cout << ">> 잘못된 입력입니다. 재료 이름 입력해주세요." << std::endl;
+                    continue; // 아무것도 추가하지 않고 다시 입력을 받음
                 }
                 ingredients_input.push_back(ingredient);
             }
 
             // 입력받은 재료가 하나 이상 있을 때만 레시피 추가
-            if (!ingredients_input.empty()) {
+            if (!ingredients_input.empty()) 
+            {
 
                 //myWorkshop.addRecipe(name, ingredients_input);
                 myWorkshop.addRecipe(PotionRecipe(name, ingredients_input)); //객체를 넘겨주는데 임시 객체로 넘겨버리자 만들고 하는것도 비용낭비
 
             }
-            else {
+            else 
+            {
                 std::cout << ">> 재료가 입력되지 않아 레시피 추가를 취소합니다." << std::endl;
             }
 
         }
-        else if (choice == 2) {
+        else if (choice == 2) 
+        {
             myWorkshop.displayAllRecipes();
 
         }
-        else if (choice == 3) {
+        else if (choice == 3) 
+        {
             std::cout << "공방 문을 닫습니다..." << std::endl;
             break;
 
@@ -96,8 +119,22 @@ int main() {
             std::cin.ignore(10000, '\n');
             std::getline(std::cin, name);
 
-            //재료 검색 함수를 다 돌기만하고 읽기만 하면되서
-            //for(PotionRecipe* i : 함수의 반환 벡터)
+            //검색 구현기능
+            std::vector<PotionRecipe*> results = myWorkshop.FindRecipeByIngredient(name);
+
+            if (results.empty())//비어 있는지 확인
+            {
+                std::cout << "검색한 재료의 레시피가 없습니다." << std::endl;
+            }
+            else
+            {
+                for (int i = 0; i < results.size(); i++)
+                {
+
+                    std::cout << "[재료 검색 완료] 레시피: " << results[i]->GetpotionName() << std::endl;
+
+                }
+            }
         }
         else 
         {

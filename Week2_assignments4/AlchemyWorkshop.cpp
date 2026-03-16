@@ -51,13 +51,21 @@ PotionRecipe* AlchemyWorkshop::FindRecipeByname(const std::string& name)
     return nullptr;
 }
 
-std::vector<PotionRecipe*> AlchemyWorkshop::FindRecipeByIngredient(const std::string& name)
+std::vector<PotionRecipe*> AlchemyWorkshop::FindRecipeByIngredient(const std::string& name)//무조건 오류가 발생함
 {
-    for (int i = 0; i < this->recipes.size(); i++)//인덱스가 필요해서
+    std::vector<PotionRecipe*> Ingerdient_Results; //1. 검색된 레시피들을 담을 빈 벡터 준비
+    for (int i = 0; i < this->recipes.size(); i++)////2. recipes 벡터를 처음부터 끝까지 하나씩 확인 (인덱스 필요)
     {
 
+        for (int j = 0; j < this->recipes[i].Getingredients().size(); j++)//3. 현재 확인 중인 레시피의 '재료 목록'을 가져온다.
+        {
+            if (this->recipes[i].Getingredients()[j] == name)
+            {
+                Ingerdient_Results.push_back(&recipes[i]);//3-1. 재료 목록을 하나씩 대조하며, 입력받은 이름(name)과 일치하는 재료가 있는지 확인
+                break;//4. 일치하는 재료를 찾았다면 해당 레시피 빈 벡터의 저장 및 다음 레시피로 넘어간다
+            }
+        }
     }
-    
-    return std::vector<PotionRecipe*>();
+    return Ingerdient_Results;//5. 레시피를 저장한 벡터를 반환
 }
 
