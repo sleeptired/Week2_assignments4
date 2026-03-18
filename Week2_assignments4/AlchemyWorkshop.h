@@ -1,12 +1,16 @@
 #pragma once
-#include <vector>
-#include <string>
+#include"RecipeManager.h"
+#include"StockManager.h"
 
 class PotionRecipe;
+class RecipeManager;
+class StockManager;
 
 class AlchemyWorkshop {
 private:
     std::vector<PotionRecipe> recipes;
+    RecipeManager recipeManager_; 
+    StockManager stockManager_;
 
 public:
     // addRecipe 메서드: 재료 목록(vector)을 매개변수로 받도록 수정
