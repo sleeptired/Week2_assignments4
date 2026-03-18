@@ -21,5 +21,5 @@ public:
     int GetStock(const std::string& potionName) const;
 
 private:
-    std::map<std::string, int> potionStock_;
+    std::map<std::string, int> potionStock_;//여기에 재고랑 포션 이름을 넣음
 };

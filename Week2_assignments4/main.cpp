@@ -95,47 +95,51 @@ int main() {
             break;
 
         }
-        else if (choice == 4) 
-        {
-            std::string name;
-            std::cout << "검색 할 물약 이름: ";
-            std::cin.ignore(10000, '\n');
-            std::getline(std::cin, name);
-
-            if (myWorkshop.FindRecipeByname(name) != nullptr)
-            {
-                std::cout << "[물약 검색 완료] 물약 이름: " << myWorkshop.FindRecipeByname(name)->GetpotionName() << std::endl;
-            }
-            else
-            {
-                std::cout << "검색한 물약이 없습니다." << std::endl;
-            }
-
-        }
-        else if (choice == 5) 
-        {
-            std::string name;
-            std::cout << "검색 할 재료 이름: ";
-            std::cin.ignore(10000, '\n');
-            std::getline(std::cin, name);
-
-            //검색 구현기능
-            std::vector<PotionRecipe*> results = myWorkshop.FindRecipeByIngredient(name);
-
-            if (results.empty())//비어 있는지 확인
-            {
-                std::cout << "검색한 재료의 레시피가 없습니다." << std::endl;
-            }
-            else
-            {
-                for (int i = 0; i < results.size(); i++)
-                {
-
-                    std::cout << "[재료 검색 완료] 레시피: " << results[i]->GetpotionName() << std::endl;
-
-                }
-            }
-        }
+#pragma region (구) 필수 기능 4번 이름으로 물약 검색 main 파트
+        //else if (choice == 4) 
+        //{
+        //    std::string name;
+        //    std::cout << "검색 할 물약 이름: ";
+        //    std::cin.ignore(10000, '\n');
+        //    std::getline(std::cin, name);
+        //
+        //    if (myWorkshop.FindRecipeByname(name) != nullptr)
+        //    {
+        //        std::cout << "[물약 검색 완료] 물약 이름: " << myWorkshop.FindRecipeByname(name)->GetpotionName() << std::endl;
+        //    }
+        //    else
+        //    {
+        //        std::cout << "검색한 물약이 없습니다." << std::endl;
+        //    }
+        //
+        //}
+#pragma endregion
+#pragma region (구) 필수 기능 5번 재료로 물약 검색 main 파트
+        //else if (choice == 5) 
+        //{
+        //    std::string name;
+        //    std::cout << "검색 할 재료 이름: ";
+        //    std::cin.ignore(10000, '\n');
+        //    std::getline(std::cin, name);
+        //
+        //    //검색 구현기능
+        //    std::vector<PotionRecipe*> results = myWorkshop.FindRecipeByIngredient(name);
+        //
+        //    if (results.empty())//비어 있는지 확인
+        //    {
+        //        std::cout << "검색한 재료의 레시피가 없습니다." << std::endl;
+        //    }
+        //    else
+        //    {
+        //        for (int i = 0; i < results.size(); i++)
+        //        {
+        //
+        //            std::cout << "[재료 검색 완료] 레시피: " << results[i]->GetpotionName() << std::endl;
+        //
+        //        }
+        //    }
+        //}
+#pragma endregion
         else 
         {
             std::cout << "잘못된 선택입니다. 다시 시도하세요." << std::endl;
