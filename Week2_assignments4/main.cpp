@@ -134,6 +134,80 @@ int main()
                 std::cout << "'" << name << "' 의 현재 재고는 " << stock << "개 입니다." << std::endl;
             }
         }
+        else if (choice == 6) 
+        {
+            std::cout << "1.물약 이름으로 지급받기 | 2. 특정 재료가 포함된 물약 지급받기: ";
+            int subchoice;
+            std::cin >> subchoice;
+            if (std::cin.fail()) {
+                std::cout << "잘못된 입력입니다. 숫자를 입력해주세요." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+                continue;
+            }
+
+            if (subchoice == 1)
+            {
+                std::string name;
+                std::cout << "지급받을 물약 이름을 입력하세요: ";
+                std::cin.ignore(10000, '\n');
+                std::getline(std::cin, name);
+                int stock = myWorkshop.GetStockByName(name);
+                if (stock == -1)
+                {
+                    // 상태 1: 애초에 없는 물약
+                    std::cout << "'" << name << "' 는 없는 물약입니다." << std::endl;
+                }
+                else
+                {
+                    if (myWorkshop.DispensePotionByName(name))
+                    {
+                        std::cout << ">> '" << name << "' 물약이 1개 지급되었습니다." << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << ">> '" << name << "' 물약 재고가 없습니다." << std::endl;
+                    }
+                }
+
+            }
+            else if (subchoice == 2)
+            {
+                std::string name;
+                std::cout << "재료를 입력해주세요(입력된 재료에 포함된 모든 물약을 지급합니다): ";
+                std::cin.ignore(10000, '\n');
+                std::getline(std::cin, name);
+                std::vector<std::string> Ingredients_for_potion = myWorkshop.DispensePotionsByIngredient(name);//무조건 재료가 포함된 포션의 모음
+                if (Ingredients_for_potion.empty()) 
+                {
+                    std::cout << "'" << name << "' 재료가 포함된 물약은 없습니다." << std::endl;
+                }
+                else 
+                {
+                    for (int i = 0; i < Ingredients_for_potion.size(); i++)
+                    {
+                        if (myWorkshop.DispensePotionByName(Ingredients_for_potion[i]))
+                        {
+                            std::cout << ">> '" << Ingredients_for_potion[i] << "' 물약이 1개 지급되었습니다." << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << ">> '" << Ingredients_for_potion[i] << "' 물약 재고가 없습니다." << std::endl;
+                        }
+
+                    }
+                }
+            }
+            else 
+            {
+                std::cout << "잘못된 선택입니다. 공방으로 돌아갑니다." << std::endl;
+                continue;
+            }
+        }
+        else if (choice == 7) 
+        {
+
+        }
 #pragma region (구) 필수 기능 4번 이름으로 물약 검색 main 파트
         //else if (choice == 4) 
         //{

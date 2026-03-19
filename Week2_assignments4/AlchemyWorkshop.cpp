@@ -70,6 +70,28 @@ int AlchemyWorkshop::GetStockByName(const std::string& potionName) const
     return -1;
 }
 
+bool AlchemyWorkshop::DispensePotionByName(const std::string& potionName)
+{
+    if (recipeManager_.FindRecipeByName(potionName) != nullptr)
+    {
+        return stockManager_.DispensePotion(potionName);
+    }
+    return false; //여기로 갈 일은 없음 
+}
+
+std::vector<std::string> AlchemyWorkshop::DispensePotionsByIngredient(const std::string& ingredient)
+{
+    std::vector<PotionRecipe> Temp_Ingredient = recipeManager_.FindRecipesByIngredient(ingredient);
+    std::vector<std::string> Ingredients_for_potion;
+    for (int i = 0; i < Temp_Ingredient.size(); i++)
+    {
+        std::string Ingredients_for_potionName = Temp_Ingredient[i].GetpotionName();//해당 재료들이 다 들어가있는 레시피의 포션 이름을 반환할꺼임
+        //stockManager_.DispensePotion(Ingredients_for_potionName);
+        Ingredients_for_potion.push_back(Ingredients_for_potionName);
+    }
+    return Ingredients_for_potion;
+}
+
 #pragma region 물약 이름으로 검색 구현파트 - (구) 필수 기능
 //PotionRecipe* AlchemyWorkshop::FindRecipeByname(const std::string& name)
 //{

@@ -9,6 +9,7 @@ private:
 public:
     // 생성자: 재료 목록을 받아 초기화하도록 수정
     PotionRecipe(const std::string& name, const std::vector<std::string>& ingredients);
+
     //ingredients get함수
     std::vector<std::string> Getingredients() const;
 

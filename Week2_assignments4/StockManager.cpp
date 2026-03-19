@@ -8,11 +8,44 @@ void StockManager::InitializeStock(const std::string& potionName)
 
 bool StockManager::DispensePotion(const std::string& potionName)
 {
-	return false;
+    auto it = potionStock_.find(potionName);
+    if (it != potionStock_.end()) 
+    {
+        if (it->second > 0) 
+        {
+            
+            it->second--;
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    else //물약을 못찾았다는건데 이미 main에서 있는지 없는지 확인해서 의미없는 부분
+    {
+        return false;
+    }
 }
 
 void StockManager::ReturnPotion(const std::string& potionName)
 {
+    auto it = potionStock_.find(potionName);
+    if (it != potionStock_.end())
+    {
+        if (it->second == MAX_STOCK)
+        {
+
+        }
+        else
+        {
+            it->second++;
+        }
+    }
+    else 
+    {
+
+    }
 }
 
 int StockManager::GetStock(const std::string& potionName) const
