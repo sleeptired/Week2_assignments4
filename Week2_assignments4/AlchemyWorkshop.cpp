@@ -10,12 +10,24 @@ void AlchemyWorkshop::addRecipe(const std::string& name, const std::vector<std::
 
 void AlchemyWorkshop::addRecipe(const PotionRecipe& cpy)//새로 추가한 부분
 {
-    recipes.push_back(cpy);//구버전 필수기능
-    std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;//구버전 필수 기능
+    //recipes.push_back(cpy);//구버전 필수기능
+    //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;//구버전 필수 기능
 
     //신버전 RecipeManager 변수를 불러와 매니저의 벡터에 add를 함.
     //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;
     //this->stockManager_.InitializeStock(cpy.GetpotionName());// 스톡 매니저에 추가
+
+    if (recipeManager_.AddRecipe(cpy))
+    {
+        std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;
+        stockManager_.InitializeStock(cpy.GetpotionName());
+    }
+    else 
+    {
+        std::cout << ">> 레시피 '" << cpy.GetpotionName() << "'는 이미 있는 물약입니다." << std::endl;
+
+    }
+
 }
 
 void AlchemyWorkshop::displayAllRecipes() const

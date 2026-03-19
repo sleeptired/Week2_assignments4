@@ -15,8 +15,8 @@ int main() {
         std::cout << "1. 레시피 추가" << std::endl;
         std::cout << "2. 모든 레시피 출력" << std::endl;
         std::cout << "3. 종료" << std::endl;
-        std::cout << "4. 물약 이름으로 레시피 검색" << std::endl;
-        std::cout << "5. 재료로 레시피 검색" << std::endl;
+        //std::cout << "4. 물약 이름으로 레시피 검색" << std::endl;
+        //std::cout << "5. 재료로 레시피 검색" << std::endl;
         std::cout << "선택: ";
 
         int choice;
