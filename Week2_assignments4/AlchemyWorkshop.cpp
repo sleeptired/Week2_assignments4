@@ -92,6 +92,18 @@ std::vector<std::string> AlchemyWorkshop::DispensePotionsByIngredient(const std:
     return Ingredients_for_potion;
 }
 
+void AlchemyWorkshop::ReturnPotionByName(const std::string& potionName)
+{
+    if (recipeManager_.Has_Recipe(potionName)) 
+    {
+        stockManager_.ReturnPotion(potionName);
+    }
+    else 
+    {
+        std::cout << "'" << potionName << "' 는 없는 물약입니다." << std::endl;
+    }
+}
+
 #pragma region 물약 이름으로 검색 구현파트 - (구) 필수 기능
 //PotionRecipe* AlchemyWorkshop::FindRecipeByname(const std::string& name)
 //{

@@ -35,16 +35,13 @@ void StockManager::ReturnPotion(const std::string& potionName)
     {
         if (it->second == MAX_STOCK)
         {
-
+            std::cout << "'" << potionName << "' 물약 재고가 이미 다 찼습니다." << std::endl;
         }
-        else
+        else 
         {
             it->second++;
+            std::cout << "'" << potionName << "' 물약을 반환 받았습니다." << std::endl;
         }
-    }
-    else 
-    {
-
     }
 }
 

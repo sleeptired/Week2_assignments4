@@ -162,7 +162,7 @@ int main()
                 {
                     if (myWorkshop.DispensePotionByName(name))
                     {
-                        std::cout << ">> '" << name << "' 물약이 1개 지급되었습니다." << std::endl;
+                        std::cout << ">> '" << name << "' 물약 1개가 모험가에게 지급되었습니다." << std::endl;
                     }
                     else
                     {
@@ -188,7 +188,7 @@ int main()
                     {
                         if (myWorkshop.DispensePotionByName(Ingredients_for_potion[i]))
                         {
-                            std::cout << ">> '" << Ingredients_for_potion[i] << "' 물약이 1개 지급되었습니다." << std::endl;
+                            std::cout << ">> '" << Ingredients_for_potion[i] << "' 물약 1개가 모험가에게 지급되었습니다." << std::endl;
                         }
                         else
                         {
@@ -206,7 +206,11 @@ int main()
         }
         else if (choice == 7) 
         {
-
+            std::string name;
+            std::cout << "반환 할 물약 이름을 입력하세요: ";
+            std::cin.ignore(10000, '\n');
+            std::getline(std::cin, name);
+            myWorkshop.ReturnPotionByName(name);
         }
 #pragma region (구) 필수 기능 4번 이름으로 물약 검색 main 파트
         //else if (choice == 4) 
