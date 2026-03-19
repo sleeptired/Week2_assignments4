@@ -19,10 +19,13 @@ public:
     // 재료로 여러 개 찾기(결과 복사본 반환)
     std::vector<PotionRecipe> FindRecipesByIngredient(const std::string& ingredient) const;
 
+    //도전 기능 재료 및 이름 통합 검색
+    std::vector<PotionRecipe> SearchRecipes(const std::string& name) const;
+
     // 전체 레시피(읽기 전용 참조)
     const std::vector<PotionRecipe>& GetAllRecipes() const;
 
-    //여기에 구 필수 검색 기능 옮기기
+    bool Has_Recipe(const std::string& name) const;
 private:
     std::vector<PotionRecipe> recipes_;
 };

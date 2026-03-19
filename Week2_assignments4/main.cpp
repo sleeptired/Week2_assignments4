@@ -6,7 +6,8 @@
 #include"AlchemyWorkshop.h"
 
 
-int main() {
+int main() 
+{
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     AlchemyWorkshop myWorkshop;
 
@@ -15,8 +16,10 @@ int main() {
         std::cout << "1. 레시피 추가" << std::endl;
         std::cout << "2. 모든 레시피 출력" << std::endl;
         std::cout << "3. 종료" << std::endl;
-        //std::cout << "4. 물약 이름으로 레시피 검색" << std::endl;
-        //std::cout << "5. 재료로 레시피 검색" << std::endl;
+        std::cout << "4. 레시피 통합 검색 (이름/재료)" << std::endl;
+        std::cout << "5. 물약 재고 확인" << std::endl;
+        std::cout << "6. 물약 지급 받기" << std::endl;
+        std::cout << "7. 물약 공병 반환하기" << std::endl;
         std::cout << "선택: ";
 
         int choice;
@@ -34,11 +37,11 @@ int main() {
             //std::cout << "물약 이름: ";
             std::cin.ignore(10000, '\n');//// 이전에 메뉴 선택에서 입력한 숫자의 엔터(\n) 찌꺼기를 지워줍니다.
             //std::getline(std::cin, name);
-            while (true) 
+            while (true)
             {
                 std::cout << "물약 이름: ";
                 std::getline(std::cin, name);
-                if (name.empty()) 
+                if (name.empty())
                 {
                     std::cout << ">> 잘못된 입력입니다. 물약 이름을 입력해주세요." << std::endl;
                     continue; // 다시 입력을 받음
@@ -51,13 +54,13 @@ int main() {
             std::string ingredient;
             std::cout << "필요한 재료들을 입력하세요. (입력 완료 시 '끝' 입력)" << std::endl;
 
-            while (true) 
+            while (true)
             {
                 std::cout << "재료 입력: ";
                 std::getline(std::cin, ingredient);
 
                 // 사용자가 '끝'을 입력하면 재료 입력 종료
-                if (ingredient == "끝") 
+                if (ingredient == "끝")
                 {
                     break;
                 }
@@ -71,29 +74,65 @@ int main() {
             }
 
             // 입력받은 재료가 하나 이상 있을 때만 레시피 추가
-            if (!ingredients_input.empty()) 
+            if (!ingredients_input.empty())
             {
 
                 //myWorkshop.addRecipe(name, ingredients_input);
                 myWorkshop.addRecipe(PotionRecipe(name, ingredients_input)); //객체를 넘겨주는데 임시 객체로 넘겨버리자 만들고 하는것도 비용낭비
 
             }
-            else 
+            else
             {
                 std::cout << ">> 재료가 입력되지 않아 레시피 추가를 취소합니다." << std::endl;
             }
 
         }
-        else if (choice == 2) 
+        else if (choice == 2)
         {
             myWorkshop.displayAllRecipes();
 
         }
-        else if (choice == 3) 
+        else if (choice == 3)
         {
             std::cout << "공방 문을 닫습니다..." << std::endl;
             break;
 
+        }
+        else if (choice == 4)
+        {
+            std::string name;
+            std::cout << "찾으시는 물약 이름이나 재료를 입력하세요: ";
+            std::cin.ignore(10000, '\n');
+            std::getline(std::cin, name);
+            std::vector<PotionRecipe> OutputRecipes = myWorkshop.Get_SearchRecipes(name);
+            if (OutputRecipes.empty())
+            {
+                std::cout << "'" << name << "'에 대한 검색 결과가 없습니다." << std::endl;
+            }
+            else
+            {
+                std::cout << "총 " << OutputRecipes.size() << "개의 레시피를 찾았습니다!" << std::endl;
+                for (int i = 0; i < OutputRecipes.size(); i++)
+                {
+                    std::cout << "레시피: '" << OutputRecipes[i].GetpotionName() << "'" << std::endl;
+                }
+            }
+        }
+        else if (choice == 5)
+        {
+            std::string name;
+            std::cout << "재고를 찾으시는 물약 이름을 입력하세요: ";
+            std::cin.ignore(10000, '\n');
+            std::getline(std::cin, name);
+            int stock = myWorkshop.GetStockByName(name);
+            if (stock == -1) 
+            {
+                std::cout << "'" << name << "' 는 없는 물약입니다." << std::endl;
+            }
+            else 
+            {
+                std::cout << "'" << name << "' 의 현재 재고는 " << stock << "개 입니다." << std::endl;
+            }
         }
 #pragma region (구) 필수 기능 4번 이름으로 물약 검색 main 파트
         //else if (choice == 4) 

@@ -2,11 +2,11 @@
 #include "PotionRecipe.h"
 #include <iostream>
 
-void AlchemyWorkshop::addRecipe(const std::string& name, const std::vector<std::string>& ingredients)
-{
-	recipes.push_back(PotionRecipe(name, ingredients));//구버전 필수기능
-	std::cout << ">> 새로운 레시피 '" << name << "'이(가) 추가되었습니다." << std::endl;//구버전 필수기능
-}
+//void AlchemyWorkshop::addRecipe(const std::string& name, const std::vector<std::string>& ingredients)
+//{
+//	recipes.push_back(PotionRecipe(name, ingredients));//구버전 필수기능
+//	std::cout << ">> 새로운 레시피 '" << name << "'이(가) 추가되었습니다." << std::endl;//구버전 필수기능
+//}
 
 void AlchemyWorkshop::addRecipe(const PotionRecipe& cpy)//새로 추가한 부분
 {
@@ -14,10 +14,8 @@ void AlchemyWorkshop::addRecipe(const PotionRecipe& cpy)//새로 추가한 부분
     //recipes.push_back(cpy);//구버전 필수기능
     //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;//구버전 필수 기능
 #pragma endregion
-    //신버전 RecipeManager 변수를 불러와 매니저의 벡터에 add를 함.
-    //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;
-    //this->stockManager_.InitializeStock(cpy.GetpotionName());// 스톡 매니저에 추가
 
+    //신버전 RecipeManager 변수를 불러와 매니저의 벡터에 add를 함.
     if (recipeManager_.AddRecipe(cpy))
     {
         std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;
@@ -53,8 +51,23 @@ void AlchemyWorkshop::displayAllRecipes() const
             }
         }
         std::cout << std::endl;
+        std::cout << "  > 재고 수량: " << stockManager_.GetStock(read_recipe[i].GetpotionName()) << "개" << std::endl;
     }
     std::cout << "---------------------------\n";
+}
+
+std::vector<PotionRecipe> AlchemyWorkshop::Get_SearchRecipes(const std::string& name) const
+{
+    return recipeManager_.SearchRecipes(name);
+}
+
+int AlchemyWorkshop::GetStockByName(const std::string& potionName) const
+{
+    if (recipeManager_.Has_Recipe(potionName))
+    {
+        return stockManager_.GetStock(potionName);
+    }
+    return -1;
 }
 
 #pragma region 물약 이름으로 검색 구현파트 - (구) 필수 기능

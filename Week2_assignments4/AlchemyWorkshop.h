@@ -8,13 +8,13 @@ class StockManager;
 
 class AlchemyWorkshop {
 private:
-    std::vector<PotionRecipe> recipes;
+    //std::vector<PotionRecipe> recipes;
     RecipeManager recipeManager_; 
     StockManager stockManager_;
 
 public:
     // addRecipe 메서드: 재료 목록(vector)을 매개변수로 받도록 수정
-    void addRecipe(const std::string& name, const std::vector<std::string>& ingredients);
+    //void addRecipe(const std::string& name, const std::vector<std::string>& ingredients);
 
     //PotionRecipe searchRecipeByname(const std::string& name); 포션이름으로 검색
     // 도전기능+ (중복 이름 처리 방식은 구현 자유: 덮어쓰기/거부/중복허용 등)
@@ -22,6 +22,9 @@ public:
 
     // 모든 레시피 출력 메서드
     void displayAllRecipes() const;
+
+    //레시피 이름 찾기
+    std::vector<PotionRecipe> Get_SearchRecipes(const std::string& name) const;
 
     // 재고 조회 (이름)
     int GetStockByName(const std::string& potionName) const;
