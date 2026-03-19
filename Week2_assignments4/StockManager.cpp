@@ -2,7 +2,7 @@
 
 void StockManager::InitializeStock(const std::string& potionName)
 {
-	std::cout << potionName << " " << MAX_STOCK << "개가 입고되었습니다." << std::endl;
+	std::cout <<">>"<< potionName << " " << MAX_STOCK << "개가 입고되었습니다." << std::endl;
 	this->potionStock_[potionName] = MAX_STOCK;
 }
 

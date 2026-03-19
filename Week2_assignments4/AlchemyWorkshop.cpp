@@ -10,9 +10,10 @@ void AlchemyWorkshop::addRecipe(const std::string& name, const std::vector<std::
 
 void AlchemyWorkshop::addRecipe(const PotionRecipe& cpy)//새로 추가한 부분
 {
+#pragma region 필수기능 물약 추가 부분
     //recipes.push_back(cpy);//구버전 필수기능
     //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;//구버전 필수 기능
-
+#pragma endregion
     //신버전 RecipeManager 변수를 불러와 매니저의 벡터에 add를 함.
     //std::cout << ">> 새로운 레시피 '" << cpy.GetpotionName() << "'이(가) 추가되었습니다." << std::endl;
     //this->stockManager_.InitializeStock(cpy.GetpotionName());// 스톡 매니저에 추가
@@ -32,24 +33,22 @@ void AlchemyWorkshop::addRecipe(const PotionRecipe& cpy)//새로 추가한 부분
 
 void AlchemyWorkshop::displayAllRecipes() const
 {
-
-    //이 부분을 const std::vector<PotionRecipe>& GetAllRecipes() const; 이걸 사용해서 
-    //const로 복사본을 하나 만들어서 저 함수를 넣고 출력을 한다.
-    if (recipes.empty()) {
+    const std::vector<PotionRecipe>& read_recipe = recipeManager_.GetAllRecipes();
+    if (read_recipe.empty()) {
         std::cout << "아직 등록된 레시피가 없습니다." << std::endl;
         return;
     }
-
+    
     std::cout << "\n--- [ 전체 레시피 목록 ] ---" << std::endl;
-    for (size_t i = 0; i < recipes.size(); ++i) {
-        std::cout << "- 물약 이름: " << recipes[i].GetpotionName() << std::endl;
+    for (size_t i = 0; i < read_recipe.size(); ++i) {
+        std::cout << "- 물약 이름: " << read_recipe[i].GetpotionName() << std::endl;
         std::cout << "  > 필요 재료: ";
-
+    
         // 재료 목록을 순회하며 출력
-        for (size_t j = 0; j < recipes[i].Getingredients().size(); ++j) {
-            std::cout << recipes[i].Getingredients()[j];
+        for (size_t j = 0; j < read_recipe[i].Getingredients().size(); ++j) {
+            std::cout << read_recipe[i].Getingredients()[j];
             // 마지막 재료가 아니면 쉼표로 구분
-            if (j < recipes[i].Getingredients().size() - 1) {
+            if (j < read_recipe[i].Getingredients().size() - 1) {
                 std::cout << ", ";
             }
         }

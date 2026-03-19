@@ -27,5 +27,10 @@ PotionRecipe* RecipeManager::FindRecipeByName(const std::string& name)
      return nullptr;//중복된 이름이 없음
 }
 
+const std::vector<PotionRecipe>& RecipeManager::GetAllRecipes() const
+{
+    return recipes_;
+}
+
 
 
